@@ -98,7 +98,15 @@ public class FrmLogin extends javax.swing.JFrame {
        Zaposleni zaposleni = Kontroler.getInstance().login(sifra);
        JOptionPane.showMessageDialog(this, "Dobrodosli " +zaposleni.getIme()+" "+zaposleni.getPrezime(),"Login",JOptionPane.INFORMATION_MESSAGE);
        this.dispose();
-       new FrmMain().setVisible(true);
+       FrmMain frm = new FrmMain();
+       frm.setUlogovani(zaposleni);
+       frm.setVisible(true);
+       frm.srediLabelu();
+       
+       
+       
+       
+       
        
        
        }catch(Exception e){

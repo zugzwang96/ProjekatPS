@@ -14,8 +14,15 @@ import root.domain.Zaposleni;
  */
 public class FrmMain extends javax.swing.JFrame {
 
-   
+    private Zaposleni ulogovani;
+    
+    public Zaposleni getUlogovani() {
+        return ulogovani;
+    }
 
+    public void setUlogovani(Zaposleni ulogovani) {
+        this.ulogovani = ulogovani;
+    }
     /**
      * Creates new form FrmMain
      */
@@ -23,7 +30,8 @@ public class FrmMain extends javax.swing.JFrame {
         super("ProjekatPS");
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
- 
+       
+    
     }
 
     /**
@@ -35,6 +43,7 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblUlogovani = new javax.swing.JLabel();
         jMenuBarMain = new javax.swing.JMenuBar();
         jMenuKorisnik = new javax.swing.JMenu();
         jmiDodaj = new javax.swing.JMenuItem();
@@ -76,21 +85,29 @@ public class FrmMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(243, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajActionPerformed
-      JDialog frmKorisnik = new FrmKorisnik(this, true);
+      FrmKorisnik frmKorisnik = new FrmKorisnik(this, true);
       frmKorisnik.pack();
       frmKorisnik.setLocationRelativeTo(this);
+      frmKorisnik.setZaposleni(ulogovani);
       frmKorisnik.setVisible(true);
+      
       
     }//GEN-LAST:event_jmiDodajActionPerformed
 
@@ -100,7 +117,8 @@ public class FrmMain extends javax.swing.JFrame {
         frmKorisnikPretraga.setLocationRelativeTo(this);
         frmKorisnikPretraga.setVisible(true);
     }//GEN-LAST:event_jmiPretraziActionPerformed
- 
+
+
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -110,9 +128,17 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuTrotinet;
     private javax.swing.JMenuItem jmiDodaj;
     private javax.swing.JMenuItem jmiPretrazi;
+    private javax.swing.JLabel lblUlogovani;
     // End of variables declaration//GEN-END:variables
 
+    public void srediLabelu() {
+        lblUlogovani.setText(ulogovani.getIme()+" "+ulogovani.getPrezime());
+    }
 
+    
+     
+    
+   
    
    
 }

@@ -6,8 +6,11 @@
 package root.view.form;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import root.domain.Korisnik;
+import root.domain.Zaposleni;
 import root.kontroler.Kontroler;
 
 /**
@@ -15,6 +18,18 @@ import root.kontroler.Kontroler;
  * @author Bane
  */
 public class FrmKorisnik extends javax.swing.JDialog {
+
+    private Zaposleni ulogovaniZ;
+
+    public Zaposleni getZaposleni() {
+        return ulogovaniZ;
+    }
+
+    public void setZaposleni(Zaposleni zaposleni) {
+        this.ulogovaniZ = zaposleni;
+    }
+    
+    
 
     /**
      * Creates new form FrmKorisnik
@@ -39,8 +54,8 @@ public class FrmKorisnik extends javax.swing.JDialog {
         txtBrojLicneKatte = new javax.swing.JTextField();
         txtIme = new javax.swing.JTextField();
         txtPrezime = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDodaj = new javax.swing.JButton();
+        btnOdustani = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Unos korisnika");
@@ -51,17 +66,17 @@ public class FrmKorisnik extends javax.swing.JDialog {
 
         jLabel3.setText("Prezime");
 
-        jButton1.setText("Dodaj");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDodaj.setText("Dodaj");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDodajActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Odustani");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnOdustani.setText("Odustani");
+        btnOdustani.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnOdustaniActionPerformed(evt);
             }
         });
 
@@ -83,9 +98,9 @@ public class FrmKorisnik extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(214, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnDodaj)
                 .addGap(26, 26, 26)
-                .addComponent(jButton2)
+                .addComponent(btnOdustani)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -105,19 +120,19 @@ public class FrmKorisnik extends javax.swing.JDialog {
                     .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnOdustani)
+                    .addComponent(btnDodaj))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnOdustaniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOdustaniActionPerformed
        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnOdustaniActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         Korisnik k = new Korisnik();
         
         if(txtBrojLicneKatte.getText().isEmpty() || txtIme.getText().isEmpty() || txtPrezime.getText().isEmpty()){
@@ -129,6 +144,10 @@ public class FrmKorisnik extends javax.swing.JDialog {
         k.setBrojLicneKarte(txtBrojLicneKatte.getText().trim());
         k.setImeKorisnika(txtIme.getText().trim());
         k.setPrezimeKorisnika(txtPrezime.getText().trim());
+        k.setZaposleni(getZaposleni());
+       
+        
+       
         
         List<Korisnik> korisnici = Kontroler.getInstance().vratiSveKorisnike();
         for (Korisnik kor : korisnici) {
@@ -141,16 +160,23 @@ public class FrmKorisnik extends javax.swing.JDialog {
         }
         
         
-        Kontroler kontroler = Kontroler.getInstance();
-        kontroler.dodajKorisnika(k);
-        JOptionPane.showMessageDialog(this, "Uspesno dodat krisnik!");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+        
+        try {
+            Kontroler kontroler = Kontroler.getInstance();
+            kontroler.dodajKorisnika(k);
+            JOptionPane.showMessageDialog(this, "Uspesno dodat krisnik!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnDodajActionPerformed
+    
+   
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnOdustani;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

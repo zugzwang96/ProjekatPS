@@ -8,22 +8,25 @@ package root.kontroler;
 import java.util.List;
 import root.domain.Korisnik;
 import root.domain.Zaposleni;
+import root.repository.Repository;
 import root.repository.RepositoryKorisnik;
 import root.repository.RepositoryZaposleni;
+import root.repository.db.impl.RepositoryDBKorisnik;
+import root.repository.db.impl.RepositoryDBZaposleni;
 
 /**
  *
  * @author Bane
  */
 public class Kontroler {
-    private final RepositoryZaposleni repositoryZaposleni;
-    private final RepositoryKorisnik repositoryKorisnik;
+    private final Repository<Zaposleni> repositoryZaposleni;
+    private final Repository<Korisnik> repositoryKorisnik;
     
     private static Kontroler kontroler;
 
     private Kontroler() {
-        this.repositoryZaposleni = new RepositoryZaposleni();
-        this.repositoryKorisnik = new RepositoryKorisnik();
+        this.repositoryZaposleni = new RepositoryDBZaposleni();
+        this.repositoryKorisnik = new RepositoryDBKorisnik();
     }
     public static Kontroler getInstance() {
         if(kontroler==null) kontroler= new Kontroler();
@@ -31,7 +34,7 @@ public class Kontroler {
     }
     
     public Zaposleni login(String lozinka) throws Exception{
-        List<Zaposleni> zaposleni = repositoryZaposleni.getZaposleni();
+        List<Zaposleni> zaposleni = repositoryZaposleni.getAll();
         for (Zaposleni z : zaposleni) {
             if(z.getSifra().equals(lozinka))
                 return z;
@@ -39,11 +42,11 @@ public class Kontroler {
         throw new Exception("Korisnik sa tom sifrom ne postoji!");
     }
     
-    public void dodajKorisnika(Korisnik k){
-        repositoryKorisnik.dodaj(k);
+    public void dodajKorisnika(Korisnik k) throws Exception{
+        repositoryKorisnik.add(k);
     }
     
     public List<Korisnik> vratiSveKorisnike(){
-    return repositoryKorisnik.getKorisnici();
+    return repositoryKorisnik.getAll();
     }
 }

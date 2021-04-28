@@ -15,15 +15,19 @@ public class Korisnik {
     String brojLicneKarte;
     String imeKorisnika;
     String prezimeKorisnika;
+    private Zaposleni zaposleni;
 
     public Korisnik() {
     }
 
-    public Korisnik(String brojLicneKarte, String imeKorisnika, String prezimeKorisnika) {
+    public Korisnik(String brojLicneKarte, String imeKorisnika, String prezimeKorisnika, Zaposleni zaposleni) {
         this.brojLicneKarte = brojLicneKarte;
         this.imeKorisnika = imeKorisnika;
         this.prezimeKorisnika = prezimeKorisnika;
+        this.zaposleni = zaposleni;
     }
+
+   
 
     public String getBrojLicneKarte() {
         return brojLicneKarte;
@@ -48,6 +52,14 @@ public class Korisnik {
     public void setPrezimeKorisnika(String prezimeKorisnika) {
         this.prezimeKorisnika = prezimeKorisnika;
     }
+      public Zaposleni getZaposleni() {
+        return zaposleni;
+    }
+
+    public void setZaposleni(Zaposleni zaposleni) {
+        this.zaposleni = zaposleni;
+    }
+    
 
     @Override
     public String toString() {
@@ -56,10 +68,11 @@ public class Korisnik {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.brojLicneKarte);
-        hash = 71 * hash + Objects.hashCode(this.imeKorisnika);
-        hash = 71 * hash + Objects.hashCode(this.prezimeKorisnika);
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.brojLicneKarte);
+        hash = 59 * hash + Objects.hashCode(this.imeKorisnika);
+        hash = 59 * hash + Objects.hashCode(this.prezimeKorisnika);
+        hash = 59 * hash + Objects.hashCode(this.zaposleni);
         return hash;
     }
 
@@ -77,6 +90,9 @@ public class Korisnik {
         }
         return true;
     }
-    
+
+   
+
+  
     
 }
