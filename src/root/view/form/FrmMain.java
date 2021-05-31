@@ -5,6 +5,7 @@
  */
 package root.view.form;
 
+import java.util.Date;
 import javax.swing.JDialog;
 import root.domain.Zaposleni;
 
@@ -30,7 +31,6 @@ public class FrmMain extends javax.swing.JFrame {
         super("ProjekatPS");
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-       
     
     }
 
@@ -44,32 +44,30 @@ public class FrmMain extends javax.swing.JFrame {
     private void initComponents() {
 
         lblUlogovani = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBarMain = new javax.swing.JMenuBar();
         jMenuKorisnik = new javax.swing.JMenu();
-        jmiDodaj = new javax.swing.JMenuItem();
-        jmiPretrazi = new javax.swing.JMenuItem();
+        jmiRadSaKorisnicima = new javax.swing.JMenuItem();
         jMenuTrotinet = new javax.swing.JMenu();
         jMenuIznajmljivanje = new javax.swing.JMenu();
+        jmiIznajmi = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblUlogovani.setForeground(new java.awt.Color(0, 153, 0));
+
+        jLabel1.setForeground(new java.awt.Color(0, 153, 0));
+        jLabel1.setText("Ulogovan:");
+
         jMenuKorisnik.setText("Korisnik");
 
-        jmiDodaj.setText("Dodaj");
-        jmiDodaj.addActionListener(new java.awt.event.ActionListener() {
+        jmiRadSaKorisnicima.setText("Rad sa korisnicima");
+        jmiRadSaKorisnicima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiDodajActionPerformed(evt);
+                jmiRadSaKorisnicimaActionPerformed(evt);
             }
         });
-        jMenuKorisnik.add(jmiDodaj);
-
-        jmiPretrazi.setText("Pretrazi");
-        jmiPretrazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiPretraziActionPerformed(evt);
-            }
-        });
-        jMenuKorisnik.add(jmiPretrazi);
+        jMenuKorisnik.add(jmiRadSaKorisnicima);
 
         jMenuBarMain.add(jMenuKorisnik);
 
@@ -77,6 +75,15 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBarMain.add(jMenuTrotinet);
 
         jMenuIznajmljivanje.setText("Iznajmljivanje");
+
+        jmiIznajmi.setText("Dodaj");
+        jmiIznajmi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiIznajmiActionPerformed(evt);
+            }
+        });
+        jMenuIznajmljivanje.add(jmiIznajmi);
+
         jMenuBarMain.add(jMenuIznajmljivanje);
 
         setJMenuBar(jMenuBarMain);
@@ -85,49 +92,51 @@ public class FrmMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(226, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDodajActionPerformed
-      FrmKorisnik frmKorisnik = new FrmKorisnik(this, true);
-      frmKorisnik.pack();
-      frmKorisnik.setLocationRelativeTo(this);
-      frmKorisnik.setZaposleni(ulogovani);
-      frmKorisnik.setVisible(true);
-      
-      
-    }//GEN-LAST:event_jmiDodajActionPerformed
-
-    private void jmiPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPretraziActionPerformed
-        JDialog frmKorisnikPretraga = new FrmKorisnikPretraga(this, true);
+    private void jmiRadSaKorisnicimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRadSaKorisnicimaActionPerformed
+        FrmKorisnikPretraga frmKorisnikPretraga = new FrmKorisnikPretraga();
         frmKorisnikPretraga.pack();
         frmKorisnikPretraga.setLocationRelativeTo(this);
+        frmKorisnikPretraga.setZaposleni(ulogovani);
         frmKorisnikPretraga.setVisible(true);
-    }//GEN-LAST:event_jmiPretraziActionPerformed
+    }//GEN-LAST:event_jmiRadSaKorisnicimaActionPerformed
+
+    private void jmiIznajmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiIznajmiActionPerformed
+      FrmIznajmljivanja frmIznajmljivanja = new FrmIznajmljivanja();
+      frmIznajmljivanja.pack();
+      frmIznajmljivanja.setLocationRelativeTo(this);
+      frmIznajmljivanja.setVisible(true);
+    }//GEN-LAST:event_jmiIznajmiActionPerformed
 
 
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBarMain;
     private javax.swing.JMenu jMenuIznajmljivanje;
     private javax.swing.JMenu jMenuKorisnik;
     private javax.swing.JMenu jMenuTrotinet;
-    private javax.swing.JMenuItem jmiDodaj;
-    private javax.swing.JMenuItem jmiPretrazi;
+    private javax.swing.JMenuItem jmiIznajmi;
+    private javax.swing.JMenuItem jmiRadSaKorisnicima;
     private javax.swing.JLabel lblUlogovani;
     // End of variables declaration//GEN-END:variables
 
@@ -135,10 +144,5 @@ public class FrmMain extends javax.swing.JFrame {
         lblUlogovani.setText(ulogovani.getIme()+" "+ulogovani.getPrezime());
     }
 
-    
-     
-    
-   
-   
    
 }

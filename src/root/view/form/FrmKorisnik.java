@@ -164,7 +164,7 @@ public class FrmKorisnik extends javax.swing.JDialog {
         try {
             Kontroler kontroler = Kontroler.getInstance();
             kontroler.dodajKorisnika(k);
-            JOptionPane.showMessageDialog(this, "Uspesno dodat krisnik!");
+            JOptionPane.showMessageDialog(this, "Uspesno dodat krisnik!"); 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }

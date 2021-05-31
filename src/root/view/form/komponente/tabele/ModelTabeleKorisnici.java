@@ -7,6 +7,7 @@ package root.view.form.komponente.tabele;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableRowSorter;
 import root.domain.Korisnik;
 
 /**
@@ -33,7 +34,7 @@ public class ModelTabeleKorisnici extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -43,8 +44,6 @@ public class ModelTabeleKorisnici extends AbstractTableModel{
                 case 0: return korisnik.getBrojLicneKarte();
                 case 1: return korisnik.getImeKorisnika();
                 case 2: return korisnik.getPrezimeKorisnika();
-                case 3: return "Trotinet";
-                case 4: return "Datum";
                     default:
                         return "n/a";
             }
@@ -56,15 +55,15 @@ public class ModelTabeleKorisnici extends AbstractTableModel{
                 case 0: return "Broj licne karte";
                 case 1: return "Ime";
                 case 2: return "Prezime";
-                case 3: return "Zaduzenja";
-                case 4: return "Period";
                     default:
                         return "n/a";
             }
     }
 
-   
-    
-    
+    public Korisnik dajIzabranogKorisnika(int red) {
+        return korisnici.get(red);
+      
+    }
+
     
 }

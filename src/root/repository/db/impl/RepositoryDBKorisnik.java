@@ -42,9 +42,9 @@ public class RepositoryDBKorisnik implements DBRepository<Korisnik>{
             k.setImeKorisnika(rs.getString("ImeKorisnika"));
             k.setPrezimeKorisnika(rs.getString("PrezimeKorisnika"));
             Zaposleni ulogovaniZaposleni = new Zaposleni();
-            ulogovaniZaposleni.setSifra("SifraZaposlenog");
-            ulogovaniZaposleni.setIme("ImeZaposlenog");
-            ulogovaniZaposleni.setPrezime("PrezimeZaposlenog");
+            ulogovaniZaposleni.setSifra(rs.getString("SifraZaposlenog"));
+            ulogovaniZaposleni.setIme(rs.getString("ImeZaposlenog"));
+            ulogovaniZaposleni.setPrezime(rs.getString("PrezimeZaposlenog"));
             k.setZaposleni(ulogovaniZaposleni);
             korisnici.add(k);
         }
@@ -78,6 +78,25 @@ public class RepositoryDBKorisnik implements DBRepository<Korisnik>{
             throw new Exception("Nije moguce dodati korisnika");
         }
         
+    }
+
+    @Override
+    public void edit(Korisnik korisnik) throws Exception {
+        try {
+            String sql="UPDATE korisnik SET "
+                    + "ImeKorisnika='"+korisnik.getImeKorisnika()+"', "
+                    + "PrezimeKorisnika='"+korisnik.getPrezimeKorisnika()+"',"
+                    + "SifraZaposlenog='"+korisnik.getZaposleni().getSifra()+"' "
+                    + "WHERE BrojLicneKarte="+korisnik.getBrojLicneKarte();
+            System.out.println(sql);
+            Connection connection=DBConnectionFactory.getInstance().getConnection();
+            Statement statement=connection.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Exception("Greskaa prilikom izmene korisnika: \n"+ex.getMessage());
+        }
     }
     
 }

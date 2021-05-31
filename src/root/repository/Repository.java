@@ -14,4 +14,5 @@ import java.util.List;
 public interface Repository<T> {
      List<T> getAll();
      void add(T parametar) throws Exception;
+     void edit(T parametar) throws Exception;
 }

@@ -5,26 +5,43 @@
  */
 package root.view.form;
 
-import java.util.ArrayList;
+
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableRowSorter;
 import root.domain.Korisnik;
+import root.domain.Zaposleni;
 import root.kontroler.Kontroler;
+import root.niti.OsveziNit;
 import root.view.form.komponente.tabele.ModelTabeleKorisnici;
 
 /**
  *
  * @author Bane
  */
-public class FrmKorisnikPretraga extends javax.swing.JDialog {
+public class FrmKorisnikPretraga extends javax.swing.JFrame {
+    
+    private Zaposleni ulogovaniZ;
+
+    public Zaposleni getZaposleni() {
+        return ulogovaniZ;
+    }
+
+    public void setZaposleni(Zaposleni zaposleni) {
+        this.ulogovaniZ = zaposleni;
+    }
 
     /**
      * Creates new form FrmKorisnikPretraga
      */
-    public FrmKorisnikPretraga(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FrmKorisnikPretraga() {
+        super("Pretraga korisnika");
         initComponents();
-        
-        srediFormu();
+        OsveziNit on = new OsveziNit(this);
+        on.start();
+       
     }
 
     /**
@@ -36,24 +53,16 @@ public class FrmKorisnikPretraga extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        cmbKorisnici = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaKorisnici = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnIzmeni = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtPretraga = new javax.swing.JTextField();
+        btnDodaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pretraga korisnika");
-
-        jLabel1.setText("Ime i prezime: ");
-
-        cmbKorisnici.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbKorisnici.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbKorisniciItemStateChanged(evt);
-            }
-        });
 
         tabelaKorisnici.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,7 +77,12 @@ public class FrmKorisnikPretraga extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tabelaKorisnici);
 
-        jButton1.setText("Razduzi trotinet");
+        btnIzmeni.setText("Izmeni");
+        btnIzmeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzmeniActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Otkazi");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -77,26 +91,43 @@ public class FrmKorisnikPretraga extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setText("Filter: ");
+
+        txtPretraga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPretragaKeyReleased(evt);
+            }
+        });
+
+        btnDodaj.setText("Dodaj");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbKorisnici, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnDodaj)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(btnIzmeni)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,14 +135,15 @@ public class FrmKorisnikPretraga extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cmbKorisnici, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnIzmeni)
+                    .addComponent(btnDodaj))
                 .addGap(33, 33, 33))
         );
 
@@ -122,15 +154,40 @@ public class FrmKorisnikPretraga extends javax.swing.JDialog {
        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void cmbKorisniciItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbKorisniciItemStateChanged
-        if(cmbKorisnici.getSelectedItem()!=null){
-        Korisnik k = (Korisnik) cmbKorisnici.getSelectedItem();
-        List<Korisnik> listaSelektovanih = new ArrayList<>();
-        listaSelektovanih.add(k);
-        ModelTabeleKorisnici mtk = new ModelTabeleKorisnici(listaSelektovanih);
-        tabelaKorisnici.setModel(mtk);
-        }
-    }//GEN-LAST:event_cmbKorisniciItemStateChanged
+    private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
+    
+           if(tabelaKorisnici.getSelectedRow()==-1){
+               JOptionPane.showMessageDialog(this, "Morate selektovati korisnika u tabeli!","Izmena korisnika",JOptionPane.ERROR_MESSAGE);
+           }
+           
+           int red = tabelaKorisnici.getSelectedRow();
+           int pravired = tabelaKorisnici.convertRowIndexToModel(red);
+           
+           if(pravired!=-1){
+           ModelTabeleKorisnici mtk = (ModelTabeleKorisnici) tabelaKorisnici.getModel();
+           Korisnik izabraniKorisnik = mtk.dajIzabranogKorisnika(pravired);
+           FrmKorisnikIzmena fki = new FrmKorisnikIzmena(this, true);
+           fki.srediFormu(izabraniKorisnik);
+           fki.setLocationRelativeTo(this);
+           fki.pack();
+           fki.setZaposleni(ulogovaniZ);
+           fki.setVisible(true);
+           }
+        
+    }//GEN-LAST:event_btnIzmeniActionPerformed
+
+    private void txtPretragaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPretragaKeyReleased
+        String query = txtPretraga.getText();
+        filtrirajTabelu(query);
+    }//GEN-LAST:event_txtPretragaKeyReleased
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        FrmKorisnik frk = new FrmKorisnik(this, true);
+        frk.setLocationRelativeTo(this);
+        frk.pack();
+        frk.setZaposleni(ulogovaniZ);
+        frk.setVisible(true);
+    }//GEN-LAST:event_btnDodajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,34 +195,28 @@ public class FrmKorisnikPretraga extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cmbKorisnici;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnIzmeni;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaKorisnici;
+    private javax.swing.JTextField txtPretraga;
     // End of variables declaration//GEN-END:variables
-
-    private void srediFormu() {
-        popuniKombo();
-        srediTabelu();
-        
-    }
-
-    private void popuniKombo() {
-        cmbKorisnici.removeAllItems();
-        List<Korisnik> korisnici = Kontroler.getInstance().vratiSveKorisnike();
-        for (Korisnik k : korisnici) {
-            cmbKorisnici.addItem(k);
-        }
-        cmbKorisnici.setSelectedItem(null);
-    }
-
-    private void srediTabelu() {
+  
+    public void srediTabelu() {
         List<Korisnik> korisnici = Kontroler.getInstance().vratiSveKorisnike();
         ModelTabeleKorisnici mtk = new ModelTabeleKorisnici(korisnici);
         tabelaKorisnici.setModel(mtk);
         
+    }
+
+    private void filtrirajTabelu(String query) {
+        ModelTabeleKorisnici mtk = (ModelTabeleKorisnici) tabelaKorisnici.getModel();
+        TableRowSorter<AbstractTableModel> tr = new TableRowSorter<AbstractTableModel>(mtk);
+        tabelaKorisnici.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+
     }
 
 

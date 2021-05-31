@@ -5,6 +5,7 @@
  */
 package root.view.form;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import root.domain.Zaposleni;
 import root.kontroler.Kontroler;

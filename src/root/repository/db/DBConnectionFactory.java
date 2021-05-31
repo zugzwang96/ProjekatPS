@@ -34,10 +34,11 @@ public class DBConnectionFactory {
     
     public Connection getConnection() throws SQLException{
         if(connection==null || connection.isClosed()){
-        String url="jdbc:mysql://localhost:3307/psbaza";
+        String url="jdbc:mysql://localhost:3307/test";
         String username="root";
         String password="";
         connection = DriverManager.getConnection(url, username, password);
+        connection.setAutoCommit(false);
         }
         return connection;
     }
