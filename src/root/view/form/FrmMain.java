@@ -86,7 +86,7 @@ public class FrmMain extends javax.swing.JFrame {
 
         jMenuIznajmljivanje.setText("Iznajmljivanje");
 
-        jmiIznajmi.setText("Dodaj");
+        jmiIznajmi.setText("Rad sa iznajmljivanjima");
         jmiIznajmi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiIznajmiActionPerformed(evt);
