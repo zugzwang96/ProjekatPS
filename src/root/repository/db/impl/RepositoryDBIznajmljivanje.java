@@ -124,5 +124,10 @@ public class RepositoryDBIznajmljivanje implements DBRepository<Iznajmljivanje>{
             throw new Exception("Greska prilikom izmene: \n"+ex.getMessage());
         }
     }
+
+    @Override
+    public void delete(Iznajmljivanje param) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

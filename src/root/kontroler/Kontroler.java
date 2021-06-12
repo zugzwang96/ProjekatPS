@@ -126,4 +126,46 @@ public class Kontroler {
             ((DBRepository)repositoryIznajmljivanje).disconnect();
         }
     }
+
+    public void dodajTrotinet(Trotinet t) throws Exception{
+              ((DBRepository)repositoryTrotinet).connect();
+        try{
+            repositoryTrotinet.add(t);
+            ((DBRepository)repositoryTrotinet).commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            ((DBRepository)repositoryTrotinet).rollback();
+            throw e;
+        }finally{
+            ((DBRepository)repositoryTrotinet).disconnect();
+        }
+    }
+
+    public void izmeniTrotinet(Trotinet t) throws Exception{
+         ((DBRepository)repositoryTrotinet).connect();
+        try{
+            ((DBRepository)repositoryTrotinet).edit(t);
+            ((DBRepository)repositoryTrotinet).commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            ((DBRepository)repositoryTrotinet).rollback();
+            throw e;
+        }finally{
+            ((DBRepository)repositoryTrotinet).disconnect();
+        }
+    }
+    
+        public void obrisiTrotinet(Trotinet t) throws Exception {
+        ((DBRepository)repositoryTrotinet).connect();
+        try{
+            repositoryTrotinet.delete(t);
+            ((DBRepository)repositoryTrotinet).commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            ((DBRepository)repositoryTrotinet).rollback();
+            throw e;
+        }finally{
+            ((DBRepository)repositoryTrotinet).disconnect();
+        }
+    }
 }

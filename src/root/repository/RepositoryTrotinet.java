@@ -29,5 +29,14 @@ public class RepositoryTrotinet {
         return trotineti;
     }
     
+        public void delete(Trotinet trotinet) throws Exception {
+        int index = trotineti.indexOf(trotinet);
+        if(index>=0){
+             trotineti.remove(index);
+        }else{
+            throw new Exception("Greska: Trotinet ne postoji!");
+        }
+       
+    }
     
 }

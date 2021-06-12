@@ -6,6 +6,7 @@
 package root.repository.db.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -59,13 +60,61 @@ public class RepositoryDBTrotinet implements DBRepository<Trotinet>{
     }
 
     @Override
-    public void add(Trotinet parametar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void add(Trotinet trotinet) throws Exception {
+        try{
+        String sql = "INSERT into trotinet VALUES (?,?,?,?,?)";
+        
+        Connection connection = DBConnectionFactory.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, trotinet.getBrojSasije());
+        statement.setString(2, trotinet.getModel());
+        statement.setInt(3, trotinet.getCena());
+        statement.setString(4, trotinet.getZaposleni().getSifra());
+        statement.setString(5, trotinet.getMarka().getSifraMarke());
+        
+        statement.executeUpdate();
+        statement.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            throw new Exception("Nije moguce dodati trotinet");
+        }
     }
 
     @Override
-    public void edit(Trotinet parametar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void edit(Trotinet trotinet) throws Exception {
+        try {
+            String sql="UPDATE trotinet SET "
+                    + "Model='"+trotinet.getModel()+"', "
+                    + "Cena='"+trotinet.getCena()+"',"
+                    + "SifraZaposlenog='"+trotinet.getZaposleni().getSifra()+"',"
+                    + "SifraMarke='"+trotinet.getMarka().getSifraMarke()+"' "
+                    + "WHERE BrojSasije="+trotinet.getBrojSasije();
+            System.out.println(sql);
+            Connection connection=DBConnectionFactory.getInstance().getConnection();
+            Statement statement=connection.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Exception("Greskaa prilikom izmene korisnika: \n"+ex.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(Trotinet t) throws Exception {
+                try {
+            String sql="DELETE FROM trotinet WHERE BrojSasije="+t.getBrojSasije();
+            System.out.println(sql);
+            Connection connection=DBConnectionFactory.getInstance().getConnection();
+            Statement statement=connection.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Exception("Greska prilikom brisanja trotineta: \n"+ex.getMessage());
+        }
+        
     }
     
 }

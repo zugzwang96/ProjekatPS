@@ -98,5 +98,10 @@ public class RepositoryDBKorisnik implements DBRepository<Korisnik>{
             throw new Exception("Greskaa prilikom izmene korisnika: \n"+ex.getMessage());
         }
     }
+
+    @Override
+    public void delete(Korisnik param) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

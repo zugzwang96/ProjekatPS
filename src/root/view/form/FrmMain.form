@@ -23,6 +23,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Trotinet"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiTrotinet">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Rad sa trotinetima"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiTrotinetActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuIznajmljivanje">
           <Properties>

@@ -49,6 +49,7 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuKorisnik = new javax.swing.JMenu();
         jmiRadSaKorisnicima = new javax.swing.JMenuItem();
         jMenuTrotinet = new javax.swing.JMenu();
+        jmiTrotinet = new javax.swing.JMenuItem();
         jMenuIznajmljivanje = new javax.swing.JMenu();
         jmiIznajmi = new javax.swing.JMenuItem();
 
@@ -72,6 +73,15 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBarMain.add(jMenuKorisnik);
 
         jMenuTrotinet.setText("Trotinet");
+
+        jmiTrotinet.setText("Rad sa trotinetima");
+        jmiTrotinet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTrotinetActionPerformed(evt);
+            }
+        });
+        jMenuTrotinet.add(jmiTrotinet);
+
         jMenuBarMain.add(jMenuTrotinet);
 
         jMenuIznajmljivanje.setText("Iznajmljivanje");
@@ -126,6 +136,14 @@ public class FrmMain extends javax.swing.JFrame {
       frmIznajmljivanja.setVisible(true);
     }//GEN-LAST:event_jmiIznajmiActionPerformed
 
+    private void jmiTrotinetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTrotinetActionPerformed
+        FrmTrotinetiPretraga frmt = new FrmTrotinetiPretraga();
+        frmt.pack();
+        frmt.setLocationRelativeTo(this);
+        frmt.setUlogovaniZ(ulogovani);
+        frmt.setVisible(true);
+    }//GEN-LAST:event_jmiTrotinetActionPerformed
+
 
   
 
@@ -137,6 +155,7 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuTrotinet;
     private javax.swing.JMenuItem jmiIznajmi;
     private javax.swing.JMenuItem jmiRadSaKorisnicima;
+    private javax.swing.JMenuItem jmiTrotinet;
     private javax.swing.JLabel lblUlogovani;
     // End of variables declaration//GEN-END:variables
 

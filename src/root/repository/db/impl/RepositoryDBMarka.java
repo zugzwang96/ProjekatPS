@@ -55,5 +55,10 @@ public class RepositoryDBMarka implements DBRepository<Marka>{
     public void edit(Marka parametar) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void delete(Marka param) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
