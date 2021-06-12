@@ -7,11 +7,14 @@ package root.view.form;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
@@ -202,7 +205,7 @@ public class FrmIznajmljivanja extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel6)))
-                        .addGap(0, 129, Short.MAX_VALUE))
+                        .addGap(0, 704, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -460,5 +463,10 @@ public class FrmIznajmljivanja extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.regexFilter(query));
 
     }
+    
+public static long dajBrojDana(Date d1, Date d2) {
+    long diff = d2.getTime() - d1.getTime();
+    return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+}
 
 }

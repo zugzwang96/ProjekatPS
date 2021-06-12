@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import root.domain.Iznajmljivanje;
+import root.view.form.FrmIznajmljivanja;
 
 
 /**
@@ -19,8 +20,10 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel{
 
     private List<Iznajmljivanje> iznajmljivanja;
 
+
     public ModelTabeleIznajmljivanja(List<Iznajmljivanje> iznajmljivanja) {
         this.iznajmljivanja = iznajmljivanja;
+
     }
 
     public List<Iznajmljivanje> getIznajmljivanja() {
@@ -38,13 +41,14 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 8;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Iznajmljivanje i = iznajmljivanja.get(rowIndex);
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy.MM.dd");
+        FrmIznajmljivanja fri = new FrmIznajmljivanja();
             switch(columnIndex){
                 case 0: return i.getKorisnik().getBrojLicneKarte();
                 case 1: return i.getKorisnik().getImeKorisnika();
@@ -53,6 +57,7 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel{
                 case 4: return i.getTrotinet().getModel();
                 case 5: return sdf.format(i.getDatumZaduzenja());
                 case 6: return sdf.format(i.getDatumRazduzenja());
+                case 7: return (fri.dajBrojDana(i.getDatumZaduzenja(), i.getDatumRazduzenja()))*i.getTrotinet().getCena();
                     default:
                         return "n/a";
             }
@@ -69,6 +74,7 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel{
                 case 4: return "Model";
                 case 5: return "Datum zaduzenja";
                 case 6: return "Datum razduzenja";
+                case 7: return "Ukupna cena iznajmljivanja";
                     default:
                         return "n/a";
             }
