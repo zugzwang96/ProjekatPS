@@ -5,12 +5,16 @@
  */
 package root.view.form;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import root.domain.Iznajmljivanje;
 import root.domain.Korisnik;
 import root.domain.Zaposleni;
 import root.kontroler.Kontroler;
+import root.view.form.komponente.tabele.ModelTabeleIznajmljivanja;
+import root.view.form.komponente.tabele.ModelTabeleIznajmljivanjaKorisnika;
 
 /**
  *
@@ -53,6 +57,8 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
         txtPrezime = new javax.swing.JTextField();
         btnOtkazi = new javax.swing.JButton();
         btnSacuvaj = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaIznajmljivanjKorisnika = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Izmena korisnika");
@@ -77,6 +83,19 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
             }
         });
 
+        tabelaIznajmljivanjKorisnika.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaIznajmljivanjKorisnika);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,15 +110,19 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPrezime)
+                            .addComponent(txtPrezime, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
                             .addComponent(txtIme)
-                            .addComponent(txtBrLicne)))
+                            .addComponent(txtBrLicne))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 220, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSacuvaj)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnOtkazi)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(btnOtkazi)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,10 +140,12 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOtkazi)
-                    .addComponent(btnSacuvaj))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSacuvaj)
+                    .addComponent(btnOtkazi))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -132,6 +157,11 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
        Korisnik k = dajKorinsika();
+       
+        if(txtIme.getText().isEmpty() || txtPrezime.getText().isEmpty()){
+           JOptionPane.showMessageDialog(this, "Greska prilikom izmene!\n" , "Izmena korisnika", JOptionPane.ERROR_MESSAGE);
+           return;
+       }
         
         try {
             Kontroler.getInstance().izmeniKorisnika(k);
@@ -155,6 +185,8 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaIznajmljivanjKorisnika;
     private javax.swing.JTextField txtBrLicne;
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtPrezime;
@@ -174,5 +206,22 @@ public class FrmKorisnikIzmena extends javax.swing.JDialog {
         korisnik.setPrezimeKorisnika(txtPrezime.getText().trim());
         korisnik.setZaposleni(getZaposleni());
         return korisnik;
+    }
+    
+        public void srediTabelu() {
+        Korisnik k = dajKorinsika();    
+        List<Iznajmljivanje> iznajmljivanja = Kontroler.getInstance().vratiSvaIznajmljivanja();
+        for (Iznajmljivanje iznam : iznajmljivanja) {
+               
+                    for (int i = 0; i < iznajmljivanja.size(); i++) {
+                        if(!(iznam.getKorisnik().getBrojLicneKarte().equals(k.getBrojLicneKarte()))){
+                            iznajmljivanja.remove(i);
+                        }
+                        
+                    }
+                
+            }
+            ModelTabeleIznajmljivanjaKorisnika mtik = new ModelTabeleIznajmljivanjaKorisnika(iznajmljivanja);
+            tabelaIznajmljivanjKorisnika.setModel(mtik);
     }
 }

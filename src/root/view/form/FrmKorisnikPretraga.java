@@ -11,10 +11,12 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
+import root.domain.Iznajmljivanje;
 import root.domain.Korisnik;
 import root.domain.Zaposleni;
 import root.kontroler.Kontroler;
 import root.niti.OsveziNit;
+import root.view.form.komponente.tabele.ModelTabeleIznajmljivanjaKorisnika;
 import root.view.form.komponente.tabele.ModelTabeleKorisnici;
 
 /**
@@ -167,12 +169,14 @@ public class FrmKorisnikPretraga extends javax.swing.JFrame {
            ModelTabeleKorisnici mtk = (ModelTabeleKorisnici) tabelaKorisnici.getModel();
            Korisnik izabraniKorisnik = mtk.dajIzabranogKorisnika(pravired);
            FrmKorisnikIzmena fki = new FrmKorisnikIzmena(this, true);
+           fki.srediTabelu();
            fki.srediFormu(izabraniKorisnik);
            fki.setLocationRelativeTo(this);
            fki.pack();
            fki.setZaposleni(ulogovaniZ);
            fki.setVisible(true);
            }
+         
         
     }//GEN-LAST:event_btnIzmeniActionPerformed
 

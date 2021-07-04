@@ -71,6 +71,12 @@ public class Iznajmljivanje {
     }
 
     @Override
+    public String toString() {
+      return korisnik.getImeKorisnika()+":"+trotinet.getModel();
+    }
+    
+
+    @Override
     public int hashCode() {
         int hash = 3;
         hash = 47 * hash + Objects.hashCode(this.sifraIznajmljivanja);
